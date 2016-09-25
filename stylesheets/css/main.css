@@ -199,7 +199,6 @@ img {
     float: left;
     width: 100%; } }
 
-/* placeholder */
 @keyframes zoo_slide_unfold {
   from {
     transform: rotateY(-180deg); }
