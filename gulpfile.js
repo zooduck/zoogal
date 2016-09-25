@@ -27,17 +27,17 @@ gulp.task('vendor', [], function () {
 });
 
 gulp.task('clean-images', [], function () {
-	return gulp.src('./dist/images/**/*', {read: false})
+	return gulp.src('./dist/images/**/*.*', {read: false})
 		.pipe($.clean());
 });
 
 gulp.task('clean-stylesheets', [], function () {
-	return gulp.src('./dist/css/**/*', {read: false})
+	return gulp.src('./dist/css/**/*.*', {read: false})
 		.pipe($.clean());
 });
 
 gulp.task('clean-scripts', [], function () {
-	return gulp.src('./dist/js/**/*', {read: false})
+	return gulp.src('./dist/js/**/*.*', {read: false})
 		.pipe($.clean());
 });
 
