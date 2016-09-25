@@ -3,7 +3,7 @@ var $ = require('gulp-load-plugins')(); // only works for gulp-prefixed dependen
 var autoprefixer = require('autoprefixer');
 
 gulp.task('sass', [], function () {
-	return gulp.src('./stylesheets/sass/**/*.scss')	
+	return gulp.src('./stylesheets/sass/**/*.scss')
 		.pipe($.sass().on('error', $.sass.logError))
 		.pipe(gulp.dest('./stylesheets/css'));
 });
@@ -26,11 +26,31 @@ gulp.task('vendor', [], function () {
 	}
 });
 
-gulp.task('scripts', ['coffee'], function () {
+gulp.task('clean-images', [], function () {
+	return gulp.src('./dist/images/**/*', {read: false})
+		.pipe($.clean());
+});
+
+gulp.task('clean-stylesheets', [], function () {
+	return gulp.src('./dist/css/**/*', {read: false})
+		.pipe($.clean());
+});
+
+gulp.task('clean-scripts', [], function () {
+	return gulp.src('./dist/js/**/*', {read: false})
+		.pipe($.clean());
+});
+
+gulp.task('images', ['clean-images'], function () {
+	return gulp.src('./images/**/*')
+		.pipe(gulp.dest('./dist/images'));
+});
+
+gulp.task('scripts', ['coffee', 'clean-scripts'], function () {
 	gulp.src('./scripts/js/**/*.js')
 		.pipe(gulp.dest('./dist/js'));
 });
-gulp.task('stylesheets', ['sass'], function () {
+gulp.task('stylesheets', ['sass', 'clean-stylesheets'], function () {
 	gulp.src('./stylesheets/css/**/*.css')
 		.pipe($.sourcemaps.init())
 		.pipe($.postcss([ autoprefixer({ browsers: ['last 5 versions'] }) ]))
@@ -63,9 +83,9 @@ gulp.task('connect', [], function () {
 		app: 'chrome'
 	}
 	gulp.src('./')
-		.pipe($.open(options));	
+		.pipe($.open(options));
 });
 
-gulp.task('default', ['scripts', 'stylesheets', 'watch', 'vendor', 'connect'], function () {
+gulp.task('default', ['scripts', 'stylesheets', 'images', 'vendor', 'watch', 'connect'], function () {
 	$.util.log('Gulp started and watching for changes...');
 });
