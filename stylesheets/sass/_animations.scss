@@ -1,0 +1,8 @@
+@keyframes zoo_slide_unfold{
+	from {
+		transform: rotateY(-180deg);	
+	}
+	to {
+		transform: rotateY(0deg);		
+	}
+}

@@ -1,2 +1,78 @@
 @import 'grid';
 @import 'mixins';
+@import 'animations';
+
+$background-base: #222;
+
+.zoo-slides-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	padding-right: 10px;
+	padding-bottom: 5.5px;
+	background: $background-base;
+
+	.zoo-slide-wrapper {
+		visibility: hidden;
+		position: relative;
+		padding-left: 10px;
+		margin-top: 10px;
+
+		/* -- NOTE --
+			the 'perspective' property can be removed if it produces
+			unexpected results on certain browsers
+		 */
+		perspective: 5000px;
+
+
+		&.ready{
+			visibility: visible;
+		}
+
+		img {
+			max-width: 100%;
+
+			&:nth-of-type(2){
+
+				position: absolute;
+				top: 0;
+				right: 0;
+				z-index: 1;
+				height: calc(100% - 4.5px); /* to correct for 4.5px auto padding after image elements */
+
+				transform-origin: left;
+				transform: rotateY(-180deg);
+
+				animation: 1s linear forwards;
+
+				/* ------------------------------------ */
+				/* this needs to be set after animation */
+				&.hidden{
+					display: none;
+				}
+				/* ------------------------------------ */
+			}
+
+			&.unfold{
+				animation-name: zoo_slide_unfold;
+			}
+		}
+
+		.half-cover {
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: calc(50% - 5px); /* to correct for 10px padding-left on zoo-slide-wrapper */
+			height: calc(100% - 4.5px); /* to correct for 4.5px auto padding after image elements */
+			background: $background-base;
+
+			/* ------------------------------------ */
+			/* this needs to be set after animation */
+			&.hidden{
+				display: none;
+			}
+			/* ------------------------------------ */
+		}
+	}
+}
