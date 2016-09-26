@@ -8,42 +8,41 @@ $background-base: #222;
 .zoo-slides-flex-jc_center{
 	display: flex;
 	justify-content: center;
-	user-select: none;	
+	user-select: none;
 }
 
 .zoo-slides-container-wrap{
 	display: block;
 	float: left;
-	background: $background-base;	
-	
+	background: $background-base;
+
 	.row{
 		display: flex;
-		align-items: center;	
+		align-items: center;
 		flex-wrap: wrap;
-		justify-content: center;		
+		justify-content: center;
 
 		&:nth-of-type(odd){
-			@media(min-width: $screen-xs){
-				animation: slide_in_top .5s;
-			}			
+			animation: slide_in_top .5s;
+			@media(max-width: $screen-xs){
+				animation-duration: 0s;
+			}
 		}
 		&:nth-of-type(even){
-			@media(min-width: $screen-xs){
-				animation: slide_in_left .5s;
-			}			
+			animation: slide_in_left .5s;
+			@media(max-width: $screen-xs){
+				animation-duration: 0s;
+			}
 		}
 	}
 }
 
-.zoo-slides-container {	
+.zoo-slides-container {
 	display: flex;
 	// flex-direction: row;
 	// flex-wrap: wrap;
 	justify-content: center;
 	padding-bottom: 5.5px;
-	cursor: pointer;
-
-	transition: all .2s;
 
 	.zoo-slide-wrapper {
 		flex-grow: 0;
@@ -52,14 +51,16 @@ $background-base: #222;
 		  flex-grow should be set to 1, and the images must be given a width of 100%
 		-------------------------------------------------------------------------------- */
 		visibility: hidden;
-		position: relative;	
+		position: relative;
 		margin-left: 10px;
 		margin-top: 10px;
+		cursor: pointer;
+
 		/* -- NOTE --
 			the 'perspective' property can be removed if it produces
 			unexpected results on certain browsers
 		 */
-		perspective: 2500px;	
+		perspective: 2500px;
 
 		@media(max-width: $screen-xs){
 			// width: 100%;
@@ -75,7 +76,7 @@ $background-base: #222;
 
 		// 	@media(max-width: $screen-xs){
 		// 		width: 100%;
-		// 	}			
+		// 	}
 
 		// 	&:nth-of-type(2){
 
@@ -110,11 +111,11 @@ $background-base: #222;
 			top: 0;
 			right: 0;
 			width: auto;
-			z-index: 1;			
+			z-index: 1;
 			left: 50%;
 			height: calc(100% - 4px); /* to correct for 4px auto margin/padding after image elements */
 
-			transform-origin: calc(0% + 5px);			
+			transform-origin: calc(0% + 5px);
 			transform: rotateY(-180deg);
 
 			animation: .5s ease-out forwards;
@@ -147,5 +148,5 @@ $background-base: #222;
 			}
 			/* ------------------------------------ */
 		}
-	}	
+	}
 }

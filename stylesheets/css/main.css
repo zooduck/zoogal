@@ -330,19 +330,21 @@
     align-items: center;
     flex-wrap: wrap;
     justify-content: center; }
-    @media (min-width: 480px) {
-      .zoo-slides-container-wrap .row:nth-of-type(odd) {
-        animation: slide_in_top .5s; } }
-    @media (min-width: 480px) {
-      .zoo-slides-container-wrap .row:nth-of-type(even) {
-        animation: slide_in_left .5s; } }
+    .zoo-slides-container-wrap .row:nth-of-type(odd) {
+      animation: slide_in_top .5s; }
+      @media (max-width: 480px) {
+        .zoo-slides-container-wrap .row:nth-of-type(odd) {
+          animation-duration: 0s; } }
+    .zoo-slides-container-wrap .row:nth-of-type(even) {
+      animation: slide_in_left .5s; }
+      @media (max-width: 480px) {
+        .zoo-slides-container-wrap .row:nth-of-type(even) {
+          animation-duration: 0s; } }
 
 .zoo-slides-container {
   display: flex;
   justify-content: center;
-  padding-bottom: 5.5px;
-  cursor: pointer;
-  transition: all .2s; }
+  padding-bottom: 5.5px; }
   .zoo-slides-container .zoo-slide-wrapper {
     flex-grow: 0;
     /* -----------------------------------------------------------------------------
@@ -353,6 +355,7 @@
     position: relative;
     margin-left: 10px;
     margin-top: 10px;
+    cursor: pointer;
     /* -- NOTE --
 			the 'perspective' property can be removed if it produces
 			unexpected results on certain browsers
