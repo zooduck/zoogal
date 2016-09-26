@@ -2,14 +2,17 @@
   display: block;
   width: 100%;
   clear: both;
-  padding: 10px; }
-
-img {
-  max-width: 100%; }
+  padding: 10px;
+  margin-left: -15px;
+  margin-right: -15px; }
 
 /* default: */
 [class*='col-'] {
+  float: left;
   width: 100%; }
+  [class*='col-'] img {
+    max-width: 100%;
+    width: 100%; }
 
 /* for mobile: */
 @media (max-width: 480px) {
@@ -24,39 +27,63 @@ img {
   .col-xs-1 {
     float: left;
     width: 8.33%; }
+    .col-xs-1 img {
+      width: auto; }
   .col-xs-2 {
     float: left;
     width: 16.66%; }
+    .col-xs-2 img {
+      width: auto; }
   .col-xs-3 {
     float: left;
     width: 25%; }
+    .col-xs-3 img {
+      width: auto; }
   .col-xs-4 {
     float: left;
     width: 33.33%; }
+    .col-xs-4 img {
+      width: auto; }
   .col-xs-5 {
     float: left;
     width: 41.66%; }
+    .col-xs-5 img {
+      width: auto; }
   .col-xs-6 {
     float: left;
     width: 50%; }
+    .col-xs-6 img {
+      width: auto; }
   .col-xs-7 {
     float: left;
     width: 58.33%; }
+    .col-xs-7 img {
+      width: auto; }
   .col-xs-8 {
     float: left;
     width: 66.6%; }
+    .col-xs-8 img {
+      width: auto; }
   .col-xs-9 {
     float: left;
     width: 75%; }
+    .col-xs-9 img {
+      width: auto; }
   .col-xs-10 {
     float: left;
     width: 83.33%; }
+    .col-xs-10 img {
+      width: auto; }
   .col-xs-11 {
     float: left;
     width: 91.66%; }
+    .col-xs-11 img {
+      width: auto; }
   .col-xs-12 {
     float: left;
-    width: 100%; } }
+    width: 100%; }
+    .col-xs-12 img {
+      width: auto; } }
 
 /* for tablet: */
 @media (max-width: 768px) {
@@ -71,39 +98,63 @@ img {
   .col-sm-1 {
     float: left;
     width: 8.33%; }
+    .col-sm-1 img {
+      width: auto; }
   .col-sm-2 {
     float: left;
     width: 16.66%; }
+    .col-sm-2 img {
+      width: auto; }
   .col-sm-3 {
     float: left;
     width: 25%; }
+    .col-sm-3 img {
+      width: auto; }
   .col-sm-4 {
     float: left;
     width: 33.33%; }
+    .col-sm-4 img {
+      width: auto; }
   .col-sm-5 {
     float: left;
     width: 41.66%; }
+    .col-sm-5 img {
+      width: auto; }
   .col-sm-6 {
     float: left;
     width: 50%; }
+    .col-sm-6 img {
+      width: auto; }
   .col-sm-7 {
     float: left;
     width: 58.33%; }
+    .col-sm-7 img {
+      width: auto; }
   .col-sm-8 {
     float: left;
     width: 66.6%; }
+    .col-sm-8 img {
+      width: auto; }
   .col-sm-9 {
     float: left;
     width: 75%; }
+    .col-sm-9 img {
+      width: auto; }
   .col-sm-10 {
     float: left;
     width: 83.33%; }
+    .col-sm-10 img {
+      width: auto; }
   .col-sm-11 {
     float: left;
     width: 91.66%; }
+    .col-sm-11 img {
+      width: auto; }
   .col-sm-12 {
     float: left;
-    width: 100%; } }
+    width: 100%; }
+    .col-sm-12 img {
+      width: auto; } }
 
 /* for desktop: */
 @media (max-width: 992px) {
@@ -118,39 +169,63 @@ img {
   .col-md-1 {
     float: left;
     width: 8.33%; }
+    .col-md-1 img {
+      width: auto; }
   .col-md-2 {
     float: left;
     width: 16.66%; }
+    .col-md-2 img {
+      width: auto; }
   .col-md-3 {
     float: left;
     width: 25%; }
+    .col-md-3 img {
+      width: auto; }
   .col-md-4 {
     float: left;
     width: 33.33%; }
+    .col-md-4 img {
+      width: auto; }
   .col-md-5 {
     float: left;
     width: 41.66%; }
+    .col-md-5 img {
+      width: auto; }
   .col-md-6 {
     float: left;
     width: 50%; }
+    .col-md-6 img {
+      width: auto; }
   .col-md-7 {
     float: left;
     width: 58.33%; }
+    .col-md-7 img {
+      width: auto; }
   .col-md-8 {
     float: left;
     width: 66.6%; }
+    .col-md-8 img {
+      width: auto; }
   .col-md-9 {
     float: left;
     width: 75%; }
+    .col-md-9 img {
+      width: auto; }
   .col-md-10 {
     float: left;
     width: 83.33%; }
+    .col-md-10 img {
+      width: auto; }
   .col-md-11 {
     float: left;
     width: 91.66%; }
+    .col-md-11 img {
+      width: auto; }
   .col-md-12 {
     float: left;
-    width: 100%; } }
+    width: 100%; }
+    .col-md-12 img {
+      width: auto; } }
 
 /* for widescreen: */
 @media (max-width: 1100px) {
@@ -165,39 +240,63 @@ img {
   .col-lg-1 {
     float: left;
     width: 8.33%; }
+    .col-lg-1 img {
+      width: auto; }
   .col-lg-2 {
     float: left;
     width: 16.66%; }
+    .col-lg-2 img {
+      width: auto; }
   .col-lg-3 {
     float: left;
     width: 25%; }
+    .col-lg-3 img {
+      width: auto; }
   .col-lg-4 {
     float: left;
     width: 33.33%; }
+    .col-lg-4 img {
+      width: auto; }
   .col-lg-5 {
     float: left;
     width: 41.66%; }
+    .col-lg-5 img {
+      width: auto; }
   .col-lg-6 {
     float: left;
     width: 50%; }
+    .col-lg-6 img {
+      width: auto; }
   .col-lg-7 {
     float: left;
     width: 58.33%; }
+    .col-lg-7 img {
+      width: auto; }
   .col-lg-8 {
     float: left;
     width: 66.6%; }
+    .col-lg-8 img {
+      width: auto; }
   .col-lg-9 {
     float: left;
     width: 75%; }
+    .col-lg-9 img {
+      width: auto; }
   .col-lg-10 {
     float: left;
     width: 83.33%; }
+    .col-lg-10 img {
+      width: auto; }
   .col-lg-11 {
     float: left;
     width: 91.66%; }
+    .col-lg-11 img {
+      width: auto; }
   .col-lg-12 {
     float: left;
-    width: 100%; } }
+    width: 100%; }
+    .col-lg-12 img {
+      width: auto; } }
 
 @keyframes zoo_slide_unfold {
   from {
@@ -205,44 +304,83 @@ img {
   to {
     transform: rotateY(0deg); } }
 
+@keyframes slide_in_top {
+  from {
+    transform: translateY(-100%); }
+  to {
+    transform: translateY(0); } }
+
+@keyframes slide_in_left {
+  from {
+    transform: translateX(-100%); }
+  to {
+    transform: translateX(0); } }
+
+.zoo-slides-flex-jc_center {
+  display: flex;
+  justify-content: center;
+  user-select: none; }
+
+.zoo-slides-container-wrap {
+  display: block;
+  float: left;
+  background: #222; }
+  .zoo-slides-container-wrap .row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center; }
+    @media (min-width: 480px) {
+      .zoo-slides-container-wrap .row:nth-of-type(odd) {
+        animation: slide_in_top .5s; } }
+    @media (min-width: 480px) {
+      .zoo-slides-container-wrap .row:nth-of-type(even) {
+        animation: slide_in_left .5s; } }
+
 .zoo-slides-container {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  padding-right: 10px;
+  justify-content: center;
   padding-bottom: 5.5px;
-  background: #222; }
+  cursor: pointer;
+  transition: all .2s; }
   .zoo-slides-container .zoo-slide-wrapper {
+    flex-grow: 0;
+    /* -----------------------------------------------------------------------------
+		  IMPORTANT NOTE: If we want the images to grow beyond their actual width then
+		  flex-grow should be set to 1, and the images must be given a width of 100%
+		-------------------------------------------------------------------------------- */
     visibility: hidden;
     position: relative;
-    padding-left: 10px;
+    margin-left: 10px;
     margin-top: 10px;
     /* -- NOTE --
 			the 'perspective' property can be removed if it produces
 			unexpected results on certain browsers
 		 */
-    perspective: 5000px; }
+    perspective: 2500px; }
+    @media (max-width: 480px) {
+      .zoo-slides-container .zoo-slide-wrapper {
+        flex-grow: 1; } }
     .zoo-slides-container .zoo-slide-wrapper.ready {
       visibility: visible; }
-    .zoo-slides-container .zoo-slide-wrapper img {
-      max-width: 100%; }
-      .zoo-slides-container .zoo-slide-wrapper img:nth-of-type(2) {
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 1;
-        height: calc(100% - 4.5px);
-        /* to correct for 4.5px auto padding after image elements */
-        transform-origin: left;
-        transform: rotateY(-180deg);
-        animation: 1s linear forwards;
-        /* ------------------------------------ */
-        /* this needs to be set after animation */
-        /* ------------------------------------ */ }
-        .zoo-slides-container .zoo-slide-wrapper img:nth-of-type(2).hidden {
-          display: none; }
-      .zoo-slides-container .zoo-slide-wrapper img.unfold {
+    .zoo-slides-container .zoo-slide-wrapper canvas {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: auto;
+      z-index: 1;
+      left: 50%;
+      height: calc(100% - 4px);
+      /* to correct for 4px auto margin/padding after image elements */
+      transform-origin: calc(0% + 5px);
+      transform: rotateY(-180deg);
+      animation: .5s ease-out forwards;
+      /* ------------------------------------ */
+      /* this needs to be set after animation */
+      /* ------------------------------------ */ }
+      .zoo-slides-container .zoo-slide-wrapper canvas.hidden {
+        display: none; }
+      .zoo-slides-container .zoo-slide-wrapper canvas.unfold {
         animation-name: zoo_slide_unfold; }
     .zoo-slides-container .zoo-slide-wrapper .half-cover {
       position: absolute;
@@ -250,8 +388,8 @@ img {
       right: 0;
       width: calc(50% - 5px);
       /* to correct for 10px padding-left on zoo-slide-wrapper */
-      height: calc(100% - 4.5px);
-      /* to correct for 4.5px auto padding after image elements */
+      height: calc(100% - 4px);
+      /* to correct for 4px auto padding after image elements */
       background: #222;
       /* ------------------------------------ */
       /* this needs to be set after animation */

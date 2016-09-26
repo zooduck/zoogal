@@ -4,67 +4,140 @@
 
 $background-base: #222;
 
-.zoo-slides-container {
+
+.zoo-slides-flex-jc_center{
 	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: center;
-	padding-right: 10px;
+	justify-content: center;
+	user-select: none;	
+}
+
+.zoo-slides-container-wrap{
+	display: block;
+	float: left;
+	background: $background-base;	
+	
+	.row{
+		display: flex;
+		align-items: center;	
+		flex-wrap: wrap;
+		justify-content: center;		
+
+		&:nth-of-type(odd){
+			@media(min-width: $screen-xs){
+				animation: slide_in_top .5s;
+			}			
+		}
+		&:nth-of-type(even){
+			@media(min-width: $screen-xs){
+				animation: slide_in_left .5s;
+			}			
+		}
+	}
+}
+
+.zoo-slides-container {	
+	display: flex;
+	// flex-direction: row;
+	// flex-wrap: wrap;
+	justify-content: center;
 	padding-bottom: 5.5px;
-	background: $background-base;
+	cursor: pointer;
+
+	transition: all .2s;
 
 	.zoo-slide-wrapper {
+		flex-grow: 0;
+		/* -----------------------------------------------------------------------------
+		  IMPORTANT NOTE: If we want the images to grow beyond their actual width then
+		  flex-grow should be set to 1, and the images must be given a width of 100%
+		-------------------------------------------------------------------------------- */
 		visibility: hidden;
-		position: relative;
-		padding-left: 10px;
+		position: relative;	
+		margin-left: 10px;
 		margin-top: 10px;
-
 		/* -- NOTE --
 			the 'perspective' property can be removed if it produces
 			unexpected results on certain browsers
 		 */
-		perspective: 5000px;
+		perspective: 2500px;	
 
+		@media(max-width: $screen-xs){
+			// width: 100%;
+			flex-grow: 1;
+		}
 
 		&.ready{
 			visibility: visible;
 		}
 
-		img {
-			max-width: 100%;
+		// img {
+		// 	max-width: 100%;
 
-			&:nth-of-type(2){
+		// 	@media(max-width: $screen-xs){
+		// 		width: 100%;
+		// 	}			
 
-				position: absolute;
-				top: 0;
-				right: 0;
-				z-index: 1;
-				height: calc(100% - 4.5px); /* to correct for 4.5px auto padding after image elements */
+		// 	&:nth-of-type(2){
 
-				transform-origin: left;
-				transform: rotateY(-180deg);
+		// 		position: absolute;
+		// 		top: 0;
+		// 		right: 0;
+		// 		width: auto;
+		// 		z-index: 1;
+		// 		width: 50%;
+		// 		height: calc(100% - 4px); /* to correct for 4px auto margin/padding after image elements */
 
-				animation: 1s linear forwards;
+		// 		transform-origin: calc(0% + 5px);
+		// 		transform: rotateY(-180deg);
 
-				/* ------------------------------------ */
-				/* this needs to be set after animation */
-				&.hidden{
-					display: none;
-				}
-				/* ------------------------------------ */
+		// 		animation: 1s linear forwards;
+
+		// 		/* ------------------------------------ */
+		// 		/* this needs to be set after animation */
+		// 		&.hidden{
+		// 			display: none;
+		// 		}
+		// 		/* ------------------------------------ */
+		// 	}
+
+		// 	&.unfold{
+		// 		animation-name: zoo_slide_unfold;
+		// 	}
+		// }
+
+		canvas{
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: auto;
+			z-index: 1;			
+			left: 50%;
+			height: calc(100% - 4px); /* to correct for 4px auto margin/padding after image elements */
+
+			transform-origin: calc(0% + 5px);			
+			transform: rotateY(-180deg);
+
+			animation: .5s ease-out forwards;
+
+			/* ------------------------------------ */
+			/* this needs to be set after animation */
+			&.hidden{
+				display: none;
 			}
+			/* ------------------------------------ */
 
 			&.unfold{
 				animation-name: zoo_slide_unfold;
 			}
 		}
 
+
 		.half-cover {
 			position: absolute;
 			top: 0;
 			right: 0;
 			width: calc(50% - 5px); /* to correct for 10px padding-left on zoo-slide-wrapper */
-			height: calc(100% - 4.5px); /* to correct for 4.5px auto padding after image elements */
+			height: calc(100% - 4px); /* to correct for 4px auto padding after image elements */
 			background: $background-base;
 
 			/* ------------------------------------ */
@@ -74,5 +147,5 @@ $background-base: #222;
 			}
 			/* ------------------------------------ */
 		}
-	}
+	}	
 }
