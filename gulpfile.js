@@ -14,11 +14,35 @@ gulp.task('coffee', [], function () {
 		.pipe(gulp.dest('./scripts/js'));
 });
 
-gulp.task('vendor', [], function () {
+gulp.task('clean-images', [], function () {
+	return gulp.src('./dist/images/**/*.*', {read: false})
+		.pipe($.clean());
+});
+
+gulp.task('clean-stylesheets', [], function () {	
+	return gulp.src('./dist/css/**/*.*', {read: false})
+		.pipe($.clean());
+});
+
+gulp.task('clean-scripts', [], function () {
+	return gulp.src(['!./dist/js/vendor/**/*.js', './dist/js/**/*.*'], {read: false})
+		.pipe($.clean());
+});
+
+gulp.task('clean-vendor', [], function () {
+	return gulp.src('./dist/js/vendor/**/*.*', {read: false})
+		.pipe($.clean());
+});
+
+gulp.task('images', [], function () {
+	return gulp.src('./images/**/*')
+		.pipe(gulp.dest('./dist/images'));
+});
+
+gulp.task('vendor', [], function () {	
 	var vendor_paths = [
-		'./bower_components/angular/angular.js',
-		'./bower_components/jquery/dist/jquery.js',
-		'./bower_components/requirejs/require.js'
+		'./bower_components/requirejs/require.js',
+		'./bower_components/jquery/dist/jquery.min.js'		
 	]
 	for(var i = 0, l = vendor_paths.length; i < l; i++){
 		gulp.src(vendor_paths[i])
@@ -26,31 +50,16 @@ gulp.task('vendor', [], function () {
 	}
 });
 
-gulp.task('clean-images', [], function () {
-	return gulp.src('./dist/images/**/*.*', {read: false})
-		.pipe($.clean());
+gulp.task('clean', ['clean-vendor', 'clean-stylesheets', 'clean-scripts', 'clean-images'], function (cb) {
+	cb();
 });
 
-gulp.task('clean-stylesheets', [], function () {
-	return gulp.src('./dist/css/**/*.*', {read: false})
-		.pipe($.clean());
-});
-
-gulp.task('clean-scripts', [], function () {
-	return gulp.src('./dist/js/**/*.*', {read: false})
-		.pipe($.clean());
-});
-
-gulp.task('images', ['clean-images'], function () {
-	return gulp.src('./images/**/*')
-		.pipe(gulp.dest('./dist/images'));
-});
-
-gulp.task('scripts', ['coffee', 'clean-scripts'], function () {
+gulp.task('scripts', ['coffee'], function () {
 	gulp.src('./scripts/js/**/*.js')
 		.pipe(gulp.dest('./dist/js'));
 });
-gulp.task('stylesheets', ['sass', 'clean-stylesheets'], function () {
+
+gulp.task('stylesheets', ['sass'], function () {	
 	gulp.src('./stylesheets/css/**/*.css')
 		.pipe($.sourcemaps.init())
 		.pipe($.postcss([ autoprefixer({ browsers: ['last 5 versions'] }) ]))
@@ -65,13 +74,14 @@ gulp.task('watch', [], function () {
 		'./dist/css/*.css',
 		'./dist/scripts/*.js'
 	]).on('change', function (file) {
+		console.log('change detected');
 		$.livereload.changed(file.path);
 	});
 	gulp.watch('./scripts/coffee/*.coffee', {interval: 500}, ['scripts']);
 	gulp.watch('./stylesheets/sass/*.scss', {interval: 500}, ['stylesheets']);
 });
 
-gulp.task('connect', [], function () {
+var connect = function () {
 	var port = 8000;
 	$.connect.server({
 		root: './dist',
@@ -84,8 +94,9 @@ gulp.task('connect', [], function () {
 	}
 	gulp.src('./')
 		.pipe($.open(options));
-});
+};
 
-gulp.task('default', ['scripts', 'stylesheets', 'images', 'vendor', 'watch', 'connect'], function () {
+gulp.task('default', ['clean', 'vendor', 'scripts', 'stylesheets', 'images', 'connect', 'watch'], function () {
+	connect();
 	$.util.log('Gulp started and watching for changes...');
 });
