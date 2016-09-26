@@ -96,7 +96,7 @@ var connect = function () {
 		.pipe($.open(options));
 };
 
-gulp.task('default', ['clean', 'vendor', 'scripts', 'stylesheets', 'images', 'connect', 'watch'], function () {
+gulp.task('default', ['clean', 'vendor', 'scripts', 'stylesheets', 'images', 'watch'], function () {
 	connect();
 	$.util.log('Gulp started and watching for changes...');
 });
