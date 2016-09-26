@@ -67,20 +67,6 @@ gulp.task('stylesheets', ['sass'], function () {
 		.pipe(gulp.dest('./dist/css/'));
 });
 
-gulp.task('watch', [], function () {
-	$.livereload.listen();
-	gulp.watch([
-		'./dist/*.html',
-		'./dist/css/*.css',
-		'./dist/scripts/*.js'
-	]).on('change', function (file) {
-		console.log('change detected');
-		$.livereload.changed(file.path);
-	});
-	gulp.watch('./scripts/coffee/*.coffee', {interval: 500}, ['scripts']);
-	gulp.watch('./stylesheets/sass/*.scss', {interval: 500}, ['stylesheets']);
-});
-
 var connect = function () {
 	var port = 8000;
 	$.connect.server({
@@ -96,7 +82,22 @@ var connect = function () {
 		.pipe($.open(options));
 };
 
-gulp.task('default', ['clean', 'vendor', 'scripts', 'stylesheets', 'images', 'watch'], function () {
+var watch = function () {
+	$.livereload.listen();
+	gulp.watch([
+		'./dist/*.html',
+		'./dist/css/*.css',
+		'./dist/scripts/*.js'
+	]).on('change', function (file) {		
+		$.livereload.changed(file.path);
+	});
+	gulp.watch('./scripts/coffee/*.coffee', {interval: 500}, ['scripts']);
+	gulp.watch('./stylesheets/sass/*.scss', {interval: 500}, ['stylesheets']);
+};
+
+gulp.task('default', ['clean', 'vendor', 'scripts', 'stylesheets', 'images'], function (cb) {
+	cb();
 	connect();
+	watch();
 	$.util.log('Gulp started and watching for changes...');
 });
