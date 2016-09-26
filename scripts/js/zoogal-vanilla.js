@@ -97,17 +97,16 @@ ZooGal = (function() {
         zoo_slides_container_wrap.lastElementChild.appendChild(zoo_slides_container);
       }
       count = count < 3 ? count + 1 : 0;
-      zoo_slides_container.addEventListener('mouseleave', function() {
+      zoo_slide_wrapper.addEventListener('mouseleave', function() {
         this.style.transform = 'scale(1)';
-        return this.style.zIndex = 0;
+        return this.style.transition = 'initial';
       });
-      zoo_slides_container.addEventListener('mousedown', function() {
-        this.style.transform = 'scale(.9)';
-        return this.style.zIndex = 1;
+      zoo_slide_wrapper.addEventListener('mousedown', function() {
+        this.style.transition = 'all .2s';
+        return this.style.transform = 'scale(.9)';
       });
-      zoo_slides_container.addEventListener('mouseup', function() {
-        this.style.transform = 'scale(1)';
-        return this.style.zIndex = 0;
+      zoo_slide_wrapper.addEventListener('mouseup', function() {
+        return this.style.transform = 'scale(1)';
       });
     }
     return document.body.appendChild(zoo_slides_flex_jc_center);

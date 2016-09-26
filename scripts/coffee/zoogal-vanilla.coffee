@@ -24,7 +24,7 @@ class ZooGal
 			img.alt = ''
 			@.data.temp.push img
 			img.addEventListener 'load', () ->
-				_this.previewsLoaded(_this.data.count)				
+				_this.previewsLoaded(_this.data.count)
 
 	previewsLoaded: (count) ->
 
@@ -35,16 +35,16 @@ class ZooGal
 				img.draggable = false
 				img.addEventListener 'dragstart', (e) ->
 					e.preventDefault() if e.preventDefault
-				obj = 
+				obj =
 					img: img
 					canvas_half: canvas_half
 					width: img.width or img.naturalWidth
 					height: img.height or img.naturalHeight
 				@.data.dom.push obj
-			
+
 			@.buildMalenkyDOM()
 
-	buildMalenkyDOM: () ->		
+	buildMalenkyDOM: () ->
 
 		zoo_slides_flex_jc_center = document.createElement 'DIV'
 		zoo_slides_flex_jc_center.className += 'zoo-slides-flex-jc_center'
@@ -53,7 +53,7 @@ class ZooGal
 		zoo_slides_flex_jc_center.appendChild zoo_slides_container_wrap
 
 		count = 0
-		for prev in @.data.dom	
+		for prev in @.data.dom
 
 			zoo_slides_container = document.createElement 'DIV'
 			zoo_slides_container.className += ' zoo-slides-container col-xs-6 col-sm-6 col-md-3'
@@ -75,22 +75,24 @@ class ZooGal
 				zoo_slides_container_wrap.lastElementChild.appendChild zoo_slides_container
 
 			count = if count < 3 then count + 1 else 0
-			
-			zoo_slides_container.addEventListener 'mouseleave', () ->
+
+			zoo_slide_wrapper.addEventListener 'mouseleave', () ->
 				@.style.transform = 'scale(1)'
-				@.style.zIndex = 0
-			zoo_slides_container.addEventListener 'mousedown', () ->
+				@.style.transition = 'initial'
+
+			zoo_slide_wrapper.addEventListener 'mousedown', () ->
+				@.style.transition = 'all .2s'
 				@.style.transform = 'scale(.9)'
-				@.style.zIndex = 1
-			zoo_slides_container.addEventListener 'mouseup', () ->
+
+			zoo_slide_wrapper.addEventListener 'mouseup', () ->
 				@.style.transform = 'scale(1)'
-				@.style.zIndex = 0
 
 
-		document.body.appendChild zoo_slides_flex_jc_center		
+
+		document.body.appendChild zoo_slides_flex_jc_center
 
 	chopImage: (img, i) ->
-		
+
 		c = document.createElement 'CANVAS' or document.createElement 'canvas'
 		c.className += ' unfold'
 		c.style.animationDelay = i * .1 + 's'
@@ -98,7 +100,7 @@ class ZooGal
 		c.height = img.height
 		ctx = c.getContext '2d'
 		ctx.drawImage img, (img.width or img.naturalWidth) / 2, 0, (img.width or img.naturalWidth) / 2, (img.height or img.naturalHeight), 0, 0, (img.width or img.naturalWidth) / 2, (img.height or img.naturalHeight)
-		
+
 		return c
 
 
@@ -107,7 +109,7 @@ class ZooGal
 
 # HERE IS WHERE THE CLIENT CREATES THE GALLERY >>>>>>>>>>>>>>>>>>>>>>>
 zoogal = new ZooGal
-data_sample = 
+data_sample =
 			hd:	[
 				'http://placehold.it/640x480'
 				'http://placehold.it/640x480'
@@ -122,18 +124,18 @@ data_sample =
 				'http://placehold.it/640x480'
 				'http://placehold.it/640x480'
 			]
-			prev: [				
-				'images/oxana1.jpg'				
+			prev: [
+				'images/oxana1.jpg'
 				'images/oxana3.jpg'
 				'images/oxana4.jpg'
 				'images/oxana5.jpg'
 				'images/03.jpg'
-				'images/12.jpg'	
-				'images/59.jpg'				
+				'images/12.jpg'
+				'images/59.jpg'
 				'http://placehold.it/480x340'
 				'http://placehold.it/480x340'
-				'http://placehold.it/480x340'							
+				'http://placehold.it/480x340'
 				'http://placehold.it/480x340'
 				'http://placehold.it/480x340'
 			]
-zoogal.init data_sample				
+zoogal.init data_sample
