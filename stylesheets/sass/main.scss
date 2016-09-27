@@ -110,15 +110,44 @@ $background-base: #222;
 			position: absolute;
 			top: 0;
 			right: 0;
-			width: auto;
+			width: 50%;
 			z-index: 1;
-			left: 50%;
-			height: calc(100% - 4px); /* to correct for 4px auto margin/padding after image elements */
+			
+			// animation: ease forwards;
 
-			transform-origin: calc(0% + 5px);
-			transform: rotateY(-180deg);
+			&.fold-x{
+				// left: calc(50% - 10px);
+				left: 50%;
 
-			animation: .5s ease-out forwards;
+				height: calc(100% - 4px); /* to correct for 4px auto margin/padding after image elements */
+
+				// transform-origin: calc(0% + 5px);
+				transform-origin: left;
+				transform: rotateY(-180deg);
+
+				animation: 1s ease forwards;
+
+				filter: grayscale(1);
+					
+			}
+			
+			&.fold-y{
+				top: calc(50% - 4px); /* to correct for 4px auto margin/padding after image elements */
+				left: 0;
+				height: 50%;
+
+				transform: rotateX(180deg) rotateY(180deg);
+				transform-origin: top;
+
+				animation: .5s linear forwards;
+
+				filter: grayscale(1);
+				
+				// animation-duration: .5s;
+			}
+			
+
+			
 
 			/* ------------------------------------ */
 			/* this needs to be set after animation */
@@ -127,19 +156,43 @@ $background-base: #222;
 			}
 			/* ------------------------------------ */
 
-			&.unfold{
-				animation-name: zoo_slide_unfold;
+			&.unfold-x{
+				animation-name: zoo_slide_unfold_X;
+			}
+			&.unfold-y{
+				animation-name: zoo_slide_unfold_Y;
 			}
 		}
 
 
 		.half-cover {
 			position: absolute;
+			// z-index: 0;
 			top: 0;
 			right: 0;
-			width: calc(50% - 5px); /* to correct for 10px padding-left on zoo-slide-wrapper */
+			// width: calc(50% - 5px); to correct for 10px padding-left on zoo-slide-wrapper
+			width: 50%;
 			height: calc(100% - 4px); /* to correct for 4px auto padding after image elements */
 			background: $background-base;
+
+			/* ------------------------------------ */
+			/* this needs to be set after animation */
+			&.hidden{
+				display: none;
+			}
+			/* ------------------------------------ */
+		}
+
+		.quarter-cover {
+			position: absolute;
+			z-index: 1;
+			left: 0;
+			top: 50%;
+			width: 50%;
+			height: calc(50% - 4px);
+			background: $background-base;
+
+			animation: zoo_slide_quarter_cover .7s linear forwards;			
 
 			/* ------------------------------------ */
 			/* this needs to be set after animation */

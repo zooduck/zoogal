@@ -42,13 +42,15 @@ ZooGal = (function() {
   };
 
   ZooGal.prototype.previewsLoaded = function(count) {
-    var canvas_half, i, img, j, len, obj, ref;
+    var canvas_fold_x, canvas_fold_y, canvas_folds, i, img, j, len, obj, ref;
     this.data.previews_loaded++;
     if (this.data.previews_loaded === this.data.count) {
       ref = this.data.temp;
       for (i = j = 0, len = ref.length; j < len; i = ++j) {
         img = ref[i];
-        canvas_half = this.chopImage(img, i);
+        canvas_folds = this.chopImage(img, i);
+        canvas_fold_x = canvas_folds[0];
+        canvas_fold_y = canvas_folds[1];
         img.draggable = false;
         img.addEventListener('dragstart', function(e) {
           if (e.preventDefault) {
@@ -57,7 +59,8 @@ ZooGal = (function() {
         });
         obj = {
           img: img,
-          canvas_half: canvas_half,
+          canvas_fold_x: canvas_fold_x,
+          canvas_fold_y: canvas_fold_y,
           width: img.width || img.naturalWidth,
           height: img.height || img.naturalHeight
         };
@@ -68,7 +71,7 @@ ZooGal = (function() {
   };
 
   ZooGal.prototype.buildMalenkyDOM = function() {
-    var count, half_cover, j, len, prev, ref, row, zoo_slide_wrapper, zoo_slides_container, zoo_slides_container_wrap, zoo_slides_flex_jc_center;
+    var count, half_cover, j, len, prev, quarter_cover, ref, row, zoo_slide_wrapper, zoo_slides_container, zoo_slides_container_wrap, zoo_slides_flex_jc_center;
     zoo_slides_flex_jc_center = document.createElement('DIV');
     zoo_slides_flex_jc_center.className += 'zoo-slides-flex-jc_center';
     zoo_slides_container_wrap = document.createElement('DIV');
@@ -84,9 +87,13 @@ ZooGal = (function() {
       zoo_slide_wrapper.className += ' zoo-slide-wrapper ready';
       half_cover = document.createElement('DIV');
       half_cover.className += ' half-cover';
+      quarter_cover = document.createElement('DIV');
+      quarter_cover.className += ' quarter-cover';
       zoo_slide_wrapper.appendChild(prev.img);
       zoo_slide_wrapper.appendChild(half_cover);
-      zoo_slide_wrapper.appendChild(prev.canvas_half);
+      zoo_slide_wrapper.appendChild(prev.canvas_fold_x);
+      zoo_slide_wrapper.appendChild(quarter_cover);
+      zoo_slide_wrapper.appendChild(prev.canvas_fold_y);
       zoo_slides_container.appendChild(zoo_slide_wrapper);
       if (count === 0) {
         row = document.createElement('DIV');
@@ -112,16 +119,26 @@ ZooGal = (function() {
     return document.body.appendChild(zoo_slides_flex_jc_center);
   };
 
-  ZooGal.prototype.chopImage = function(img, i) {
-    var c, ctx;
-    c = document.createElement('CANVAS' || document.createElement('canvas'));
-    c.className += ' unfold';
-    c.style.animationDelay = i * .1 + 's';
-    c.width = (img.width || img.naturalWidth) / 2;
-    c.height = img.height;
-    ctx = c.getContext('2d');
-    ctx.drawImage(img, (img.width || img.naturalWidth) / 2, 0, (img.width || img.naturalWidth) / 2, img.height || img.naturalHeight, 0, 0, (img.width || img.naturalWidth) / 2, img.height || img.naturalHeight);
-    return c;
+  ZooGal.prototype.chopImage = function(img, index) {
+    var c, canvas_folds, classname, css, ctx, delays, heights, i, j, len, width, y_coords;
+    css = [' fold-x unfold-x', ' fold-y unfold-y'];
+    heights = [img.height || img.naturalHeight, (img.height || img.naturalHeight) / 2];
+    width = (img.width || img.naturalWidth) / 2;
+    y_coords = [0, (img.height || img.naturalHeight) / 2];
+    delays = ['.7s', '.2s'];
+    canvas_folds = [];
+    for (i = j = 0, len = css.length; j < len; i = ++j) {
+      classname = css[i];
+      c = document.createElement('CANVAS' || document.createElement('canvas'));
+      c.className += css[i];
+      c.style.animationDelay = delays[i];
+      c.width = (img.width || img.naturalWidth) / 2;
+      c.height = heights[i];
+      ctx = c.getContext('2d');
+      ctx.drawImage(img, width, y_coords[i], width, heights[i], 0, 0, width, heights[i]);
+      canvas_folds.push(c);
+    }
+    return canvas_folds;
   };
 
   return ZooGal;

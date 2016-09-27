@@ -1,11 +1,41 @@
-@keyframes zoo_slide_unfold{
-	from {
-		transform: rotateY(-180deg);	
+@keyframes zoo_slide_unfold_X{
+	0% {
+		z-index: 2;
+		transform: rotateY(-180deg);
+		filter: grayscale(1);	
 	}
-	to {
-		transform: rotateY(0deg);		
+	35% {
+		filter: grayscale(1);
+	}
+	50% {
+		filter: grayscale(0);
+	}
+	100% {
+		z-index: 2;
+		transform: rotateY(0deg);
+		filter: grayscale(0);		
 	}
 }
+
+@keyframes zoo_slide_unfold_Y {
+	from {
+		transform: rotateX(180deg) rotateY(180deg);		
+	}	
+	to {
+		transform: rotateX(0deg) rotateY(180deg);
+		visibility: hidden;		
+	}
+}
+
+@keyframes zoo_slide_quarter_cover {
+	0% {
+		visibility: visible;
+	}	
+	100%{
+		visibility: hidden;
+	}
+}
+
 
 @keyframes slide_in_top {
 	from {

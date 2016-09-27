@@ -298,11 +298,32 @@
     .col-lg-12 img {
       width: auto; } }
 
-@keyframes zoo_slide_unfold {
+@keyframes zoo_slide_unfold_X {
+  0% {
+    z-index: 2;
+    transform: rotateY(-180deg);
+    filter: grayscale(1); }
+  35% {
+    filter: grayscale(1); }
+  50% {
+    filter: grayscale(0); }
+  100% {
+    z-index: 2;
+    transform: rotateY(0deg);
+    filter: grayscale(0); } }
+
+@keyframes zoo_slide_unfold_Y {
   from {
-    transform: rotateY(-180deg); }
+    transform: rotateX(180deg) rotateY(180deg); }
   to {
-    transform: rotateY(0deg); } }
+    transform: rotateX(0deg) rotateY(180deg);
+    visibility: hidden; } }
+
+@keyframes zoo_slide_quarter_cover {
+  0% {
+    visibility: visible; }
+  100% {
+    visibility: hidden; } }
 
 @keyframes slide_in_top {
   from {
@@ -370,27 +391,39 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: auto;
+      width: 50%;
       z-index: 1;
-      left: 50%;
-      height: calc(100% - 4px);
-      /* to correct for 4px auto margin/padding after image elements */
-      transform-origin: calc(0% + 5px);
-      transform: rotateY(-180deg);
-      animation: .5s ease-out forwards;
       /* ------------------------------------ */
       /* this needs to be set after animation */
       /* ------------------------------------ */ }
+      .zoo-slides-container .zoo-slide-wrapper canvas.fold-x {
+        left: 50%;
+        height: calc(100% - 4px);
+        /* to correct for 4px auto margin/padding after image elements */
+        transform-origin: left;
+        transform: rotateY(-180deg);
+        animation: 1s ease forwards;
+        filter: grayscale(1); }
+      .zoo-slides-container .zoo-slide-wrapper canvas.fold-y {
+        top: calc(50% - 4px);
+        /* to correct for 4px auto margin/padding after image elements */
+        left: 0;
+        height: 50%;
+        transform: rotateX(180deg) rotateY(180deg);
+        transform-origin: top;
+        animation: .5s linear forwards;
+        filter: grayscale(1); }
       .zoo-slides-container .zoo-slide-wrapper canvas.hidden {
         display: none; }
-      .zoo-slides-container .zoo-slide-wrapper canvas.unfold {
-        animation-name: zoo_slide_unfold; }
+      .zoo-slides-container .zoo-slide-wrapper canvas.unfold-x {
+        animation-name: zoo_slide_unfold_X; }
+      .zoo-slides-container .zoo-slide-wrapper canvas.unfold-y {
+        animation-name: zoo_slide_unfold_Y; }
     .zoo-slides-container .zoo-slide-wrapper .half-cover {
       position: absolute;
       top: 0;
       right: 0;
-      width: calc(50% - 5px);
-      /* to correct for 10px padding-left on zoo-slide-wrapper */
+      width: 50%;
       height: calc(100% - 4px);
       /* to correct for 4px auto padding after image elements */
       background: #222;
@@ -398,4 +431,18 @@
       /* this needs to be set after animation */
       /* ------------------------------------ */ }
       .zoo-slides-container .zoo-slide-wrapper .half-cover.hidden {
+        display: none; }
+    .zoo-slides-container .zoo-slide-wrapper .quarter-cover {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      top: 50%;
+      width: 50%;
+      height: calc(50% - 4px);
+      background: #222;
+      animation: zoo_slide_quarter_cover .7s linear forwards;
+      /* ------------------------------------ */
+      /* this needs to be set after animation */
+      /* ------------------------------------ */ }
+      .zoo-slides-container .zoo-slide-wrapper .quarter-cover.hidden {
         display: none; }

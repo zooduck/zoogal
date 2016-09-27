@@ -31,13 +31,16 @@ class ZooGal
 		@.data.previews_loaded++
 		if @.data.previews_loaded == @.data.count
 			for img, i in @.data.temp
-				canvas_half = @.chopImage img, i
+				canvas_folds = @.chopImage img, i
+				canvas_fold_x = canvas_folds[0]
+				canvas_fold_y = canvas_folds[1]
 				img.draggable = false
 				img.addEventListener 'dragstart', (e) ->
 					e.preventDefault() if e.preventDefault
 				obj =
 					img: img
-					canvas_half: canvas_half
+					canvas_fold_x: canvas_fold_x
+					canvas_fold_y: canvas_fold_y								
 					width: img.width or img.naturalWidth
 					height: img.height or img.naturalHeight
 				@.data.dom.push obj
@@ -61,9 +64,13 @@ class ZooGal
 			zoo_slide_wrapper.className += ' zoo-slide-wrapper ready'
 			half_cover = document.createElement 'DIV'
 			half_cover.className += ' half-cover'
+			quarter_cover = document.createElement 'DIV'
+			quarter_cover.className += ' quarter-cover'
 			zoo_slide_wrapper.appendChild prev.img
-			zoo_slide_wrapper.appendChild half_cover
-			zoo_slide_wrapper.appendChild prev.canvas_half
+			zoo_slide_wrapper.appendChild half_cover				
+			zoo_slide_wrapper.appendChild prev.canvas_fold_x
+			zoo_slide_wrapper.appendChild quarter_cover	
+			zoo_slide_wrapper.appendChild prev.canvas_fold_y			
 			zoo_slides_container.appendChild zoo_slide_wrapper
 
 			if count == 0
@@ -91,17 +98,35 @@ class ZooGal
 
 		document.body.appendChild zoo_slides_flex_jc_center
 
-	chopImage: (img, i) ->
+	chopImage: (img, index) ->
 
-		c = document.createElement 'CANVAS' or document.createElement 'canvas'
-		c.className += ' unfold'
-		c.style.animationDelay = i * .1 + 's'
-		c.width = (img.width or img.naturalWidth) / 2
-		c.height = img.height
-		ctx = c.getContext '2d'
-		ctx.drawImage img, (img.width or img.naturalWidth) / 2, 0, (img.width or img.naturalWidth) / 2, (img.height or img.naturalHeight), 0, 0, (img.width or img.naturalWidth) / 2, (img.height or img.naturalHeight)
+		# c = document.createElement 'CANVAS' or document.createElement 'canvas'
+		# c.className += ' unfold'
+		# c.style.animationDelay = i * .1 + 's'
+		# c.width = (img.width or img.naturalWidth) / 2
+		# c.height = img.height
+		# ctx = c.getContext '2d'
+		# ctx.drawImage img, (img.width or img.naturalWidth) / 2, 0, (img.width or img.naturalWidth) / 2, (img.height or img.naturalHeight), 0, 0, (img.width or img.naturalWidth) / 2, (img.height or img.naturalHeight)
 
-		return c
+		
+		css = [' fold-x unfold-x', ' fold-y unfold-y']
+		heights = [(img.height or img.naturalHeight), (img.height or img.naturalHeight) / 2]
+		width = (img.width or img.naturalWidth) / 2
+		y_coords = [0, (img.height or img.naturalHeight) / 2]
+		delays = ['.7s', '.2s']
+		canvas_folds = []
+		for classname, i in css
+			c = document.createElement 'CANVAS' or document.createElement 'canvas'
+			c.className += css[i]
+			# c.style.animationDelay = index+i * 2 + 's'
+			c.style.animationDelay = delays[i]
+			c.width = (img.width or img.naturalWidth) / 2
+			c.height = heights[i]
+			ctx = c.getContext '2d'
+			ctx.drawImage img, width, y_coords[i], width, heights[i], 0, 0, width, heights[i]
+			canvas_folds.push c
+
+		return canvas_folds
 
 
 
