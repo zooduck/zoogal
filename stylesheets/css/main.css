@@ -319,6 +319,22 @@
     transform: rotateX(0deg) rotateY(180deg);
     visibility: hidden; } }
 
+@keyframes zoo_slide_settle {}@keyframes settle_A {
+  0% {
+    transform: rotate(-15deg); }
+  90% {
+    transform: rotate(-15deg); }
+  100% {
+    transform: rotate(0deg); } }
+
+@keyframes settle_B {
+  0% {
+    transform: rotate(35deg); }
+  90% {
+    transform: rotate(35deg); }
+  100% {
+    transform: rotate(0deg); } }
+
 @keyframes zoo_slide_quarter_cover {
   0% {
     visibility: visible; }
@@ -332,9 +348,13 @@
     transform: translateY(0); } }
 
 @keyframes slide_in_left {
-  from {
+  0% {
     transform: translateX(-100%); }
-  to {
+  20% {
+    transform: translateX(40%); }
+  40% {
+    transform: translateX(60%); }
+  100% {
     transform: translateX(0); } }
 
 .zoo-slides-flex-jc_center {
@@ -345,27 +365,28 @@
 .zoo-slides-container-wrap {
   display: block;
   float: left;
-  background: #222; }
+  width: 100%;
+  padding: 0 15px 0 23px;
+  overflow: hidden;
+  background: #222;
+  animation: slide_in_top .5s; }
+  @media (max-width: 480px) {
+    .zoo-slides-container-wrap {
+      animation-duration: 0s; } }
   .zoo-slides-container-wrap .row {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     justify-content: center; }
-    .zoo-slides-container-wrap .row:nth-of-type(odd) {
-      animation: slide_in_top .5s; }
-      @media (max-width: 480px) {
-        .zoo-slides-container-wrap .row:nth-of-type(odd) {
-          animation-duration: 0s; } }
-    .zoo-slides-container-wrap .row:nth-of-type(even) {
-      animation: slide_in_left .5s; }
-      @media (max-width: 480px) {
-        .zoo-slides-container-wrap .row:nth-of-type(even) {
-          animation-duration: 0s; } }
 
 .zoo-slides-container {
   display: flex;
   justify-content: center;
   padding-bottom: 5.5px; }
+  .zoo-slides-container:nth-of-type(odd) {
+    animation: settle_A 3s; }
+  .zoo-slides-container:nth-of-type(even) {
+    animation: settle_B 3s; }
   .zoo-slides-container .zoo-slide-wrapper {
     flex-grow: 0;
     /* -----------------------------------------------------------------------------
@@ -374,7 +395,6 @@
 		-------------------------------------------------------------------------------- */
     visibility: hidden;
     position: relative;
-    margin-left: 10px;
     margin-top: 10px;
     cursor: pointer;
     /* -- NOTE --
@@ -405,14 +425,15 @@
         animation: 1s ease forwards;
         filter: grayscale(1); }
       .zoo-slides-container .zoo-slide-wrapper canvas.fold-y {
-        top: calc(50% - 4px);
+        top: calc(50% - 0px);
         /* to correct for 4px auto margin/padding after image elements */
         left: 0;
         height: 50%;
         transform: rotateX(180deg) rotateY(180deg);
         transform-origin: top;
         animation: .5s linear forwards;
-        filter: grayscale(1); }
+        filter: grayscale(1);
+        border-top-width: 0; }
       .zoo-slides-container .zoo-slide-wrapper canvas.hidden {
         display: none; }
       .zoo-slides-container .zoo-slide-wrapper canvas.unfold-x {
@@ -422,7 +443,7 @@
     .zoo-slides-container .zoo-slide-wrapper .half-cover {
       position: absolute;
       top: 0;
-      right: 0;
+      right: -2px;
       width: 50%;
       height: calc(100% - 4px);
       /* to correct for 4px auto padding after image elements */
@@ -435,12 +456,12 @@
     .zoo-slides-container .zoo-slide-wrapper .quarter-cover {
       position: absolute;
       z-index: 1;
-      left: 0;
+      left: -2px;
       top: 50%;
-      width: 50%;
-      height: calc(50% - 4px);
+      width: 100%;
+      height: 50%;
       background: #222;
-      animation: zoo_slide_quarter_cover .7s linear forwards;
+      animation: zoo_slide_quarter_cover .5s ease forwards;
       /* ------------------------------------ */
       /* this needs to be set after animation */
       /* ------------------------------------ */ }

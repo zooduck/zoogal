@@ -84,11 +84,12 @@ ZooGal = (function() {
       zoo_slides_container = document.createElement('DIV');
       zoo_slides_container.className += ' zoo-slides-container col-xs-6 col-sm-6 col-md-3';
       zoo_slide_wrapper = document.createElement('DIV');
-      zoo_slide_wrapper.className += ' zoo-slide-wrapper ready';
+      zoo_slide_wrapper.className += ' zoo-slide-wrapper ready settle';
       half_cover = document.createElement('DIV');
       half_cover.className += ' half-cover';
       quarter_cover = document.createElement('DIV');
       quarter_cover.className += ' quarter-cover';
+      quarter_cover.style.animationDelay = prev.canvas_fold_y.style.animationDelay;
       zoo_slide_wrapper.appendChild(prev.img);
       zoo_slide_wrapper.appendChild(half_cover);
       zoo_slide_wrapper.appendChild(prev.canvas_fold_x);
@@ -119,19 +120,59 @@ ZooGal = (function() {
     return document.body.appendChild(zoo_slides_flex_jc_center);
   };
 
+  ZooGal.prototype.stackify = function() {
+    var c, centerpointX, centerpointY, factor, i, img, img_offset_left_normalize, j, len, maxX, maxY, minX, minY, obj, ordered_items, prev, ref, results, xpos, ypos;
+    centerpointX = window.innerWidth / 2;
+    centerpointY = 100;
+    minX = 100;
+    maxX = centerpointX + 100;
+    minY = centerpointY - 50;
+    maxY = centerpointY + 50;
+    obj = {};
+    ref = this.data.dom;
+    for (j = 0, len = ref.length; j < len; j++) {
+      prev = ref[j];
+      factor = Math.random();
+      img_offset_left_normalize = prev.img.parentNode.parentNode.offsetLeft;
+      xpos = minX + (1 + (factor * ((maxX - minX) / 100)) * 100) - prev.img.parentNode.parentNode.offsetLeft;
+      ypos = minY + (1 + factor * ((maxY - minY) / 100) * 100) - prev.img.parentNode.parentNode.offsetTop;
+      obj[xpos + prev.img.parentNode.parentNode.offsetLeft] = prev.img;
+      if (Math.round(factor) === 0) {
+        factor = factor * -1;
+      }
+      prev.img.parentNode.style.transform = 'translateX(' + xpos + 'px)' + ' translateY(' + ypos + 'px)' + ' rotate(' + factor * 45 + 'deg)';
+    }
+    ordered_items = {};
+    Object.keys(obj).sort(function(a, b) {
+      return a - b;
+    }).forEach(function(key) {
+      return ordered_items[key] = obj[key];
+    });
+    c = 0;
+    results = [];
+    for (i in ordered_items) {
+      img = ordered_items[i];
+      console.log(i, img.src);
+      img.parentNode.style.zIndex = c;
+      results.push(c++);
+    }
+    return results;
+  };
+
   ZooGal.prototype.chopImage = function(img, index) {
-    var c, canvas_folds, classname, css, ctx, delays, heights, i, j, len, width, y_coords;
+    var c, canvas_folds, classname, css, ctx, delays, heights, i, j, lag, len, width, y_coords;
     css = [' fold-x unfold-x', ' fold-y unfold-y'];
     heights = [img.height || img.naturalHeight, (img.height || img.naturalHeight) / 2];
     width = (img.width || img.naturalWidth) / 2;
     y_coords = [0, (img.height || img.naturalHeight) / 2];
-    delays = ['.7s', '.2s'];
+    delays = [.85, .35];
     canvas_folds = [];
     for (i = j = 0, len = css.length; j < len; i = ++j) {
       classname = css[i];
       c = document.createElement('CANVAS' || document.createElement('canvas'));
       c.className += css[i];
-      c.style.animationDelay = delays[i];
+      lag = index * 0.2;
+      c.style.animationDelay = delays[i] + lag + 's';
       c.width = (img.width || img.naturalWidth) / 2;
       c.height = heights[i];
       ctx = c.getContext('2d');
@@ -148,8 +189,8 @@ ZooGal = (function() {
 zoogal = new ZooGal;
 
 data_sample = {
-  hd: ['http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480'],
-  prev: ['images/oxana1.jpg', 'images/oxana3.jpg', 'images/oxana4.jpg', 'images/oxana5.jpg', 'images/03.jpg', 'images/12.jpg', 'images/59.jpg', 'http://placehold.it/480x340', 'http://placehold.it/480x340', 'http://placehold.it/480x340', 'http://placehold.it/480x340', 'http://placehold.it/480x340']
+  hd: ['http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480', 'http://placehold.it/640x480'],
+  prev: ['images/1.jpg', 'images/2.jpg', 'images/1.jpg', 'images/2.jpg', 'images/1.jpg', 'images/2.jpg', 'images/1.jpg', 'images/2.jpg', 'images/1.jpg', 'images/2.jpg', 'images/1.jpg']
 };
 
 zoogal.init(data_sample);
